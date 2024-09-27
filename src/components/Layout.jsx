@@ -3,11 +3,13 @@ import Nav from "./Nav";
 import Header from "./Header";
 import ProductFrontend from "../pages/ProductsFrontend";
 import axios from "axios";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
 import { setUser } from "../redux/actions/setUserActions";
 
 const Layout = (props) => {
+  const location = useLocation();
+
   // const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
@@ -24,6 +26,12 @@ const Layout = (props) => {
     })();
   }, []);
 
+  let header;
+
+  if (location.pathname === "/" || location.pathname === "/backend") {
+    header = <Header />;
+  }
+
   // if (redirect) {
   //   return <Navigate to={"/login"} />;
   // }
@@ -31,7 +39,7 @@ const Layout = (props) => {
     <div>
       <Nav />
       <main>
-        <Header />
+        {header}
 
         <div className="album py-5 bg-light">
           <div className="container">{props.children}</div>

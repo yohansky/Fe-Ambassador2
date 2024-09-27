@@ -7,7 +7,9 @@ const Nav = (props) => {
   const [redirect, setRedirect] = useState(false);
   const logout = async () => {
     await axios.post("logout");
+
     // jika ingin di reload saja tanpa ke halaman login
+    // props.setUser(null)
     window.location.reload();
     // jika ingin diarahkan ke login page
     // setRedirect(true);
@@ -65,6 +67,12 @@ const Nav = (props) => {
   );
 };
 
-export default connect((state) => ({
-  user: state.user,
-}))(Nav);
+export default connect(
+  (state) => ({
+    user: state.user,
+  })
+  // ,
+  // (dispatch) => ({
+  //   setUser: (user) => dispatch(setUser(user)),
+  // })
+)(Nav);
