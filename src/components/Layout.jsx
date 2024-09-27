@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 import { setUser } from "../redux/actions/setUserActions";
 
 const Layout = (props) => {
-  const [redirect, setRedirect] = useState(false);
+  // const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -16,16 +16,17 @@ const Layout = (props) => {
         const { data } = await axios.get("/user");
 
         props.setUser(data);
-        console.log(props);
+        console.log(props.user);
       } catch (e) {
-        setRedirect(true);
+        // setRedirect(true);
+        console.log(e);
       }
     })();
   }, []);
 
-  if (redirect) {
-    return <Navigate to={"/login"} />;
-  }
+  // if (redirect) {
+  //   return <Navigate to={"/login"} />;
+  // }
   return (
     <div>
       <Nav />
