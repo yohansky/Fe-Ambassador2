@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, NavLink } from "react-router-dom";
 
 const Nav = (props) => {
   const [redirect, setRedirect] = useState(false);
@@ -57,14 +57,14 @@ const Nav = (props) => {
       <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
         <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
           <li>
-            <a href="#" className="nav-link px-2 link-secondary">
+            <NavLink to="/" exact className={({ isActive }) => (isActive ? "nav-link px-2 link-dark" : "nav-link px-2 link-secondary")}>
               Frontend
-            </a>
+            </NavLink>
           </li>
           <li>
-            <a href="#" className="nav-link px-2 link-dark">
+            <NavLink to={"/backend"} className={({ isActive }) => (isActive ? "nav-link px-2 link-dark" : "nav-link px-2 link-secondary")}>
               Backend
-            </a>
+            </NavLink>
           </li>
         </ul>
         {menu}

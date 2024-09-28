@@ -7,12 +7,14 @@ import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import Stats from "./pages/Stats";
 import Rangkings from "./pages/Rangkings";
+import ProductsBackend from "./pages/ProductsBackend";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path={"/"} exact Component={ProductsFrontend} />
+        <Route path={"/backend"} Component={ProductsBackend} />
         <Route path={"/login"} Component={Login} />
         <Route path={"/register"} Component={Register} />
         <Route path={"/profile"} Component={Profile} />
