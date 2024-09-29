@@ -8,6 +8,7 @@ const ProductsBackend = () => {
   const [products, setProducts] = useState([]);
   const [filters, setFilters] = useState({
     s: "",
+    sort: "",
   });
 
   useEffect(() => {
@@ -17,6 +18,11 @@ const ProductsBackend = () => {
       if (filters.s) {
         arr.push(`s=${filters.s}`);
       }
+
+      if (filters.sort) {
+        arr.push(`sort=${filters.sort}`);
+      }
+
       const { data } = await axios.get(`/products/backend?${arr.join("&")}`);
 
       setProducts(data.data);

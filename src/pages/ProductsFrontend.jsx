@@ -9,6 +9,7 @@ const ProductsFrontend = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [filters, setFilters] = useState({
     s: "",
+    sort: "",
   });
 
   useEffect(() => {
@@ -22,6 +23,32 @@ const ProductsFrontend = () => {
 
   useEffect(() => {
     let products = allProducts.filter((p) => p.title.toLowerCase().indexOf(filters.s.toLowerCase()) >= 0 || p.description.toLowerCase().indexOf(filters.s.toLowerCase()) >= 0);
+
+    if (filters.sort === "asc") {
+      products.sort((a, b) => {
+        if (a.price > b.price) {
+          return 1;
+        }
+
+        if (a.price < b.price) {
+          return -1;
+        }
+
+        return 0;
+      });
+    } else if (filters.sort === "desc") {
+      products.sort((a, b) => {
+        if (a.price > b.price) {
+          return -1;
+        }
+
+        if (a.price < b.price) {
+          return 1;
+        }
+
+        return 0;
+      });
+    }
 
     setFilteredProducts(products);
   }, [filters]);
