@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Products = (props) => {
+  const [selected, setSelected] = useState([]);
+
   const search = (s) => {
     props.setFilters({
       ...props.filters,
@@ -22,6 +24,15 @@ const Products = (props) => {
       ...props.filters,
       page: props.filters.page + 1,
     });
+  };
+
+  const select = (id) => {
+    if (selected.some((s) => s === id)) {
+      setSelected(selected.filter((s) => s !== id));
+      return;
+    }
+
+    setSelected([...selected, id]);
   };
 
   let button;
@@ -54,8 +65,8 @@ const Products = (props) => {
         {props.products && props.products.length > 0 ? (
           props.products.map((product) => {
             return (
-              <div className="col">
-                <div className="card shadow-sm">
+              <div className="col" key={product.id} onClick={() => select(product.id)}>
+                <div className={selected.some((s) => s === product.id) ? "card shadow-sm selected" : "card shadow-sm"}>
                   <img src={product.image} height={200} />
 
                   <div className="card-body">
