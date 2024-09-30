@@ -4,6 +4,7 @@ const Products = (props) => {
   const search = (s) => {
     props.setFilters({
       ...props.filters,
+      page: 1,
       s,
     });
   };
@@ -11,9 +12,29 @@ const Products = (props) => {
   const sort = (sort) => {
     props.setFilters({
       ...props.filters,
+      page: 1,
       sort,
     });
   };
+
+  const load = () => {
+    props.setFilters({
+      ...props.filters,
+      page: props.filters.page + 1,
+    });
+  };
+
+  let button;
+
+  if (props.filters.page != props.lastPage) {
+    button = (
+      <div className="d-flex justify-content-center mt-4">
+        <button className="btn btn-primary" onClick={load}>
+          Load More
+        </button>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -51,6 +72,8 @@ const Products = (props) => {
           <p>No products available</p>
         )}
       </div>
+
+      {button}
     </>
   );
 };
