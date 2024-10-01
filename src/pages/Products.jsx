@@ -1,7 +1,13 @@
+import axios from "axios";
 import React, { useState } from "react";
 
 const Products = (props) => {
   const [selected, setSelected] = useState([]);
+  const [notify, setNotify] = useState({
+    show: false,
+    error: false,
+    message: "",
+  });
 
   const search = (s) => {
     props.setFilters({
@@ -35,6 +41,34 @@ const Products = (props) => {
     setSelected([...selected, id]);
   };
 
+  const generate = async () => {
+    try {
+      const { data } = await axios.post("/links", {
+        products: selected,
+      });
+
+      setNotify({
+        show: true,
+        error: false,
+        message: `Link generated: http://localhost:5000/${data.code}`,
+      });
+    } catch (e) {
+      setNotify({
+        show: true,
+        error: true,
+        message: "You should be logged in to generate a link",
+      });
+    } finally {
+      setTimeout(() => {
+        setNotify({
+          show: false,
+          error: false,
+          message: "",
+        });
+      }, 3000);
+    }
+  };
+
   let button;
 
   if (props.filters.page != props.lastPage) {
@@ -47,11 +81,35 @@ const Products = (props) => {
     );
   }
 
+  let generateButton, info;
+
+  if (selected.length > 0) {
+    generateButton = (
+      <div className="input-group-append">
+        <button className="btn btn-info" onClick={generate}>
+          Generate Link(add to cart)
+        </button>
+      </div>
+    );
+  }
+
+  if (notify.show) {
+    info = (
+      <div className="col-md-12 mb-4">
+        <div className={notify.error ? "alert alert-danger" : "alert alert-info"} role="alert">
+          {notify.message}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <>
+      {info}
+
       <div className="col-md-12 mb-4 input-group">
         <input type="text" className="form-control" placeholder="Search" onChange={(e) => search(e.target.value)} />
-
+        {generateButton}
         <div className="input-group-append">
           <select name="" id="" className="form-select" onChange={(e) => sort(e.target.value)}>
             <option>Select</option>
@@ -66,7 +124,7 @@ const Products = (props) => {
           props.products.map((product) => {
             return (
               <div className="col" key={product.id} onClick={() => select(product.id)}>
-                <div className={selected.some((s) => s === product.id) ? "card shadow-sm selected" : "card shadow-sm"}>
+                <div className={selected.some((s) => s === product.id) ? "card shadow-sm card-selected" : "card shadow-sm"}>
                   <img src={product.image} height={200} />
 
                   <div className="card-body">

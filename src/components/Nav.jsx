@@ -24,14 +24,14 @@ const Nav = (props) => {
   if (props.user?.id) {
     console.log(props.user);
     menu = (
-      <div className="col-md-3 text-end">
+      <div className="col-md-4 text-end">
         <Link to={"/rangkings"} className="btn me-2">
           Rangkings
         </Link>
         <Link to={"/stats"} className="btn me-2">
           Stats
         </Link>
-        <a href="#" className="btn btn-outline-primary me-2" onClick={logout}>
+        <a className="btn btn-outline-primary me-2" onClick={logout}>
           Logout
         </a>
         <Link to={"/profile"} className="btn btn-primary">
