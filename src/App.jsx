@@ -11,17 +11,19 @@ import ProductsBackend from "./pages/ProductsBackend";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path={"/"} exact Component={ProductsFrontend} />
-        <Route path={"/backend"} Component={ProductsBackend} />
-        <Route path={"/login"} Component={Login} />
-        <Route path={"/register"} Component={Register} />
-        <Route path={"/profile"} Component={Profile} />
-        <Route path={"/stats"} Component={Stats} />
-        <Route path={"/rangkings"} Component={Rangkings} />
-      </Routes>
-    </BrowserRouter>
+    <div className="App">
+      <BrowserRouter>
+        <Routes>
+          <Route path={"/"} exact Component={ProductsFrontend} />
+          <Route path={"/backend"} Component={ProductsBackend} />
+          <Route path={"/login"} Component={Login} />
+          <Route path={"/register"} Component={Register} />
+          <Route path={"/profile"} Component={Profile} />
+          <Route path={"/stats"} Component={Stats} />
+          <Route path={"/rangkings"} Component={Rangkings} />
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }
 

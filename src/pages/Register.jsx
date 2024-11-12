@@ -8,6 +8,7 @@
 
 import axios from "axios";
 import React, { Component, SyntheticEvent } from "react";
+import { Link } from "react-router-dom";
 import { Navigate, Redirect } from "react-router-dom";
 
 class Register extends Component {
@@ -75,6 +76,14 @@ class Register extends Component {
             Submit
           </button>
         </form>
+        <div>
+          <p>
+            have an account?
+            <Link to={"/login"}>
+              <a style={{ color: "blue" }}>Login</a>
+            </Link>
+          </p>
+        </div>
       </main>
     );
   }
